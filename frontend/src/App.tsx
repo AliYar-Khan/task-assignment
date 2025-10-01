@@ -11,7 +11,7 @@ function App() {
 
   return (
     <Router>
-      <BrandingBar />
+      <BrandingBar token={token ? token : ''} />
       <Routes>
         <Route path="/login" element={<LoginForm onLogin={setToken} />} />
         <Route path="/signup" element={<SignupForm onSignup={setToken} />} />

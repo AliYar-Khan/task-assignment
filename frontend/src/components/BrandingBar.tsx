@@ -8,24 +8,31 @@ interface Branding {
   color?: string;
 }
 
-export default function BrandingBar() {
+export default function BrandingBar({ token }: { token: string }) {
   const [branding, setBranding] = useState<Branding>({});
 
   useEffect(() => {
-    fetch(`${BACKEND_URL}/branding`)
-      .then(async res => {
-        if (!res.ok) throw new Error('No branding');
-        return res.json();
+    if (token) {
+      fetch(`${BACKEND_URL}/branding`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
       })
-      .then(data => {
-        if (!data || !data.name) {
-          setBranding({ name: 'Your App', color: '#333' });
-        } else {
-          setBranding(data);
-        }
-      })
-      .catch(() => setBranding({ name: 'Your App', color: '#333' }));
-  }, []);
+        .then(async res => {
+          if (!res.ok) throw new Error('No branding');
+          return res.json();
+        })
+        .then(data => {
+          if (!data || !data.name) {
+            setBranding({ name: 'Your App', color: '#333' });
+          } else {
+            setBranding(data);
+          }
+        })
+        .catch(() => setBranding({ name: 'Your App', color: '#333' }));
+    } else {
+      setBranding({ name: 'Your App', color: '#333' })
+    }
+  }, [token]);
 
   return (
     <div style={{ background: branding.color || '#333', color: '#fff', padding: '1rem', display: 'flex', position: 'fixed', width: '100%', top: 0, alignItems: 'center' }}>

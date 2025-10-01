@@ -13,7 +13,7 @@ export default function BrandingForm({ token, onSuccess }: { token: string; onSu
     setError('');
     setSuccess('');
     try {
-      const res = await fetch(`${BACKEND_URL}/branding/create`, {
+      const res = await fetch(`${BACKEND_URL}/branding`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
