@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:3000';
+
 interface Branding {
   logoUrl?: string;
   name?: string;
@@ -10,7 +12,7 @@ export default function BrandingBar() {
   const [branding, setBranding] = useState<Branding>({});
 
   useEffect(() => {
-    fetch('http://localhost:3000/branding')
+    fetch(`${BACKEND_URL}/branding`)
       .then(async res => {
         if (!res.ok) throw new Error('No branding');
         return res.json();

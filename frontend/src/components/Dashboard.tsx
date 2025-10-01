@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:3000';
+
+
 interface Metrics {
   callsToday: number;
   activeUsers: number;
@@ -13,7 +16,7 @@ export default function Dashboard({ token }: { token: string }) {
 
   useEffect(() => {
     // Fetch user role
-    fetch('http://localhost:3000/auth/me', {
+    fetch(`${BACKEND_URL}/auth/me`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(res => res.json())
@@ -21,7 +24,7 @@ export default function Dashboard({ token }: { token: string }) {
       .catch(() => setError('Failed to fetch role'));
 
     // Fetch metrics
-    fetch('http://localhost:3000/metrics', {
+    fetch(`${BACKEND_URL}/metrics`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(res => res.json())

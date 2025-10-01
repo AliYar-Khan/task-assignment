@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:3000';
+
+
 export default function SignupForm({ onSignup }: { onSignup: (token: string) => void }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -10,7 +13,7 @@ export default function SignupForm({ onSignup }: { onSignup: (token: string) => 
         e.preventDefault();
         setError('');
         try {
-            const res = await fetch('http://localhost:3000/auth/signup', {
+            const res = await fetch(`${BACKEND_URL}/auth/signup`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password, tenantSubdomain }),

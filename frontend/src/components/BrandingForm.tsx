@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:3000';
 
 export default function BrandingForm({ token, onSuccess }: { token: string; onSuccess?: () => void }) {
   const [logoUrl, setLogoUrl] = useState('');
@@ -12,7 +13,7 @@ export default function BrandingForm({ token, onSuccess }: { token: string; onSu
     setError('');
     setSuccess('');
     try {
-      const res = await fetch('http://localhost:3000/branding/create', {
+      const res = await fetch(`${BACKEND_URL}/branding/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

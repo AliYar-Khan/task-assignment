@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:3000';
+
+
 export default function LoginForm({ onLogin }: { onLogin: (token: string) => void }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -21,7 +24,7 @@ export default function LoginForm({ onLogin }: { onLogin: (token: string) => voi
     setError('');
     const tenantSubdomain = getTenantSubdomain();
     try {
-      const res = await fetch('http://localhost:3000/auth/login', {
+      const res = await fetch(`${BACKEND_URL}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password, tenantSubdomain }),
