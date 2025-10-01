@@ -11,16 +11,16 @@ import cors from "cors";
 export const app = express();
 const port: number = parseInt(process.env.PORT || '3000', 10);
 
+app.options("*", cors({
+  origin: "https://devho-frontend.netlify.app",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}));
 // Middleware setup
 app.use(express.json());
 app.use(securityMiddleware.validateApiKey);
 app.use(securityMiddleware.enforceTenantIsolation);
-
-app.use(cors({
-  origin: "https://devho-frontend.netlify.app",
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
 
 // Subdomain extraction middleware
 app.use((req, _res, next) => {
