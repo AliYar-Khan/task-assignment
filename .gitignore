@@ -2,8 +2,8 @@
 node_modules/
 
 # Build output
-/dist/
-/build/
+/frontend/dist/
+/mini-saas-module/dist/
 
 # Logs
 npm-debug.log*
