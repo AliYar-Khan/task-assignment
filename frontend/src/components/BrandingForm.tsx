@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-const BACKEND_URL = process.env.VITE_BACKEND_URL || 'http://localhost:3000';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
 
 export default function BrandingForm({ token, onSuccess }: { token: string; onSuccess?: () => void }) {
   const [logoUrl, setLogoUrl] = useState('');
