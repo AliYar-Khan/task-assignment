@@ -5,6 +5,7 @@ import authRoutes from './routes/authRoutes';
 import ultravoxRoutes from './routes/ultravoxRoutes';
 import metricsRoutes from './routes/metricsRoutes';
 import brandingRoutes from './routes/brandingRoutes';
+import { connectDB } from './utils/db';
 
 export const app = express();
 const port: number = parseInt(process.env.PORT || '3000', 10);
@@ -34,9 +35,13 @@ app.use('/branding', brandingRoutes);
 app.use('/tenants', tenantRoutes);
 
 // Start the server only if not in test environment
+
+// Connect to MongoDB and start the server only if not in test environment
 if (process.env.NODE_ENV !== 'test') {
-    app.listen(port, () => {
-        console.log(`Server is running on http://localhost:${port}`);
+    connectDB().then(() => {
+        app.listen(port, () => {
+            console.log(`Server is running on http://localhost:${port}`);
+        });
     });
 }
 
